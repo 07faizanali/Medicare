@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content padding-y">
+        
+<!-- ============================ COMPONENT REGISTER   ================================= -->
+	<div class="card mx-auto" style="max-width:520px; margin-top:40px;">
+      <article class="card-body">
+		{% include 'includes/alert.html' %}
+		<header class="mb-4"><h4 class="card-title">Sign up</h4></header>
+		<form action="{% url 'register' %}" method="post">
+			{% csrf_token %}
+				<div class="form-row">
+					<div class="col form-group">
+						<label>Name :</label>
+					  	<input type="text" class="form-control" placeholder="Enter Full Name" name="Name">
+					</div> <!-- form-group end.// -->
+					
+				</div> <!-- form-row end.// -->
+				<div class="form-group">
+                    <label>Gender :</label>
+					<label class="custom-control custom-radio custom-control-inline">
+					  <input class="custom-control-input"  type="radio" name="Gender" value="Male">
+					  <span class="custom-control-label"> Male </span>
+					</label>
+					<label class="custom-control custom-radio custom-control-inline">
+					  <input class="custom-control-input" type="radio" name="Gender" value="Female">
+					  <span class="custom-control-label"> Female </span>
+					</label>
+                    <label class="custom-control custom-radio custom-control-inline">
+                        <input class="custom-control-input" type="radio" name="Gender" value="Other">
+                        <span class="custom-control-label"> Other </span>
+                      </label>
+				</div> <!-- form-group end.// -->
+				<div class="form-group">
+					<label>Address :</label>
+					<textarea class="form-control" placeholder="Enter Address" name="Address"></textarea>
+					<small class="form-text text-muted">We'll never share your address with anyone else.</small>
+				</div> <!-- form-group end.// -->
+				<div class="form-row">
+					<div class="form-group col-md-6">
+					  <label>City :</label>
+					  <input type="text" class="form-control" placeholder="Enter City" name="City">
+					</div> <!-- form-group end.// -->
+					<div class="form-group col-md-6">
+					  <label>Mobile :</label>
+					  <input type="text" class="form-control" placeholder="+91_ _ _ _ _ _ _ _ _ _" name="Mobile">
+					</div> <!-- form-group end.// -->
+				</div> <!-- form-row.// -->
+				<div class="form-row">
+				<div class="col form-group">
+					<label>Email :</label>
+					  <input type="email" class="form-control" placeholder="info@gmail.com" name="Email" required>
+				</div> <!-- form-group end.// -->
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label>Create password :</label>
+					    <input class="form-control" type="password" placeholder="Enter Password" name="password">
+					</div> <!-- form-group end.// --> 
+					<div class="form-group col-md-6">
+						<label>Repeat password :</label>
+					    <input class="form-control" type="password" placeholder="Re-Enter Password" name="password">
+					</div> <!-- form-group end.// -->  
+				</div>
+			    <div class="form-group">
+			        <button type="submit" class="btn btn-primary btn-block"> Submit  </button>
+			    </div> <!-- form-group// -->      
+			        
+			</form>
+		</article><!-- card-body.// -->
+    </div> <!-- card .// -->
+    <p class="text-center mt-4">Have an account? <a href="{% url 'login' %}">Login</a></p>
+    <br><br>
+<!-- ============================ COMPONENT REGISTER  END.// ================================= -->
+
+
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+{% endblock %}
+
