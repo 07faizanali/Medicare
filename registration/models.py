@@ -10,17 +10,7 @@ class CustomUserManager(BaseUserManager):
         user.set_password(password)
         user.save(using=self._db)
         return user
-
-    def create_superuser(self, email, password=None):
-        if not email:
-            raise ValueError("The Email field must be set")
-        email = self.normalize_email(email)
-        user = self.model(email=email, is_staff=True, is_superuser=True)
-        user.set_password(password)
-        user.save(using=self._db)
-        return user
-
-
+ 
 # Create your models here.
 class UserDetails(AbstractBaseUser):
     user_id = models.AutoField(primary_key=True)
@@ -32,10 +22,7 @@ class UserDetails(AbstractBaseUser):
     Email_id = models.EmailField(max_length=40, unique=True, null=False)
     password = models.CharField(max_length=20, null=False)
 
-
     is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
-
     # Add the last_login field
     last_login = models.DateTimeField(null=True, blank=True)
 
@@ -47,7 +34,8 @@ class UserDetails(AbstractBaseUser):
     def __str__(self):
         return self.Email_id
 
-    
+    class Meta:
+        db_table = 'userdetails'
 
     
 

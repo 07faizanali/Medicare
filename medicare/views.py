@@ -21,10 +21,8 @@ def product(request):
     return render(request,'product.html')
 
 def product_detail(request):
-    return render(request,'product_detail.html')
+    return render(request,'store/product_detail.html')
 
-def cart(request):
-    return render(request,'cart.html')
 
 def payment(request):
     return render(request,'payment.html')

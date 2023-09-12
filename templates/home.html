@@ -31,9 +31,9 @@
 	{% for product in products %}
 	<div class="col-md-3">
 		<div class="card card-product-grid">
-			<a href="{% url 'product_detail' %}" class="img-wrap"> <img src="{{ product.P_image.url }}"> </a>
+			<a href="{% url 'product_detail' product.P_id %}" class="img-wrap"> <img src="{{ product.P_image.url }}"> </a>
 			<figcaption class="info-wrap">
-				<a href="{% url 'product_detail' %}" class="title">{{ product.P_name }}</a>
+				<a href="{% url 'product_detail' product.P_id %}" class="title">{{ product.P_name }}</a>
 				<div class="price mt-1">Rs {{ product.Price }}</div> <!-- price-wrap.// -->
 			</figcaption>
 		</div>

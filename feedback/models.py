@@ -12,3 +12,6 @@ class Feedback(models.Model):
 
     def __str__(self):
         return self.F_id
+    
+    class Meta:
+        db_table = 'feedback'

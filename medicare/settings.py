@@ -38,9 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'foradmin',
     'registration',
     'feedback',
     'product',
+    'cart',
 ]
 
 MIDDLEWARE = [
@@ -66,6 +68,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                
             ],
         },
     },
@@ -74,6 +77,14 @@ TEMPLATES = [
 WSGI_APPLICATION = 'medicare.wsgi.application'
 
 AUTH_USER_MODEL = 'registration.UserDetails'
+
+# AUTHENTICATION_BACKENDS = [
+#     'foradmin.backends.AdminUserBackend',
+#     'django.contrib.auth.backends.ModelBackend',
+# ]
+
+
+# AUTH_USER_MODEL = 'foradmin.AdminUser'   # this is for admin authentication
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases

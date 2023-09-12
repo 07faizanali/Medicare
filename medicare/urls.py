@@ -22,11 +22,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
     path('', include('registration.urls')),
-    # path('login/', views.login, name='login'),
+    
     path('product/', include('product.urls')),
     path('product_detail.html', views.product_detail, name='product_detail'),
-    path('cart.html', views.cart, name='cart'),
-    path('payment.html', views.payment, name='payment'),
+    path('cart/', include('cart.urls')),
+    path('cart/payment.html', views.payment, name='payment'),
     path('order.html', views.order, name='order'),
     path('', include('feedback.urls')),
     path('dashboard.html', views.dashboard, name='dashboard')

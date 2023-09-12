@@ -22,6 +22,7 @@
 <div class="container">
 
 <div class="row">
+	{% if not 'search' in request.path %}
 	<aside class="col-md-3">
 
 <div class="card">
@@ -36,8 +37,8 @@
 			<div class="card-body">
 				<ul class="list-menu">
 					<li><a href="{% url 'product' %}">All Product  </a></li>
-				{% for category in links %}
-					<li><a href="{{ category.get_url }}">{{ category.category_name }}  </a></li>
+				{% for category in categories %}
+				<li><a href="{% url 'product' %}?category={{ category }}">{{ category }}</a></li>
 				{% endfor %}
 				</ul>
 
@@ -50,6 +51,7 @@
 </div> <!-- card.// -->
 
 	</aside> <!-- col.// -->
+	{% endif %}
 	<main class="col-md-9">
 
 <header class="border-bottom mb-4 pb-3">
@@ -66,18 +68,18 @@
 		<figure class="card card-product-grid">
 			<div class="img-wrap">
 
-				<a href="{% url 'product_detail' %}"><img src="{{ product.P_image.url }}"></a>
+				<a href="{% url 'product_detail' product.P_id %}"><img src="{{ product.P_image.url }}"></a>
 
 			</div> <!-- img-wrap.// -->
 			<figcaption class="info-wrap">
 				<div class="fix-height">
-					<a href="{% url 'product_detail' %}" class="title">{{ product.P_name }}</a>
+					<a href=" {% url 'product_detail' product.P_id %} " class="title">{{ product.P_name }}</a>
 					<div class="price-wrap mt-2">
 						<span class="price">Rs {{ product.Price }}</span>
 						
 					</div> <!-- price-wrap.// -->
 				</div>
-				<a href="{% url 'product_detail' %}" class="btn btn-block btn-primary">View Details </a>
+				<a href="{% url 'product_detail' product.P_id %}" class="btn btn-block btn-primary">View Details </a>
 			</figcaption>
 		</figure>
 	</div> <!-- col.// -->
