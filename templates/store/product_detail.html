@@ -30,7 +30,11 @@
 
 	
 	<hr>
+	{% if user.is_authenticated %}
 	<a href="{% url 'add_cart' product.P_id %}" class="btn  btn-primary"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i>  </a>
+	{% else %}
+	<a href="{% url 'login' %}" class="btn  btn-primary"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i>  </a>
+	{% endif %}
 </article> <!-- product-info-aside .// -->
 		</main> <!-- col.// -->
 	</div> <!-- row.// -->

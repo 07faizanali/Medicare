@@ -1,53 +1,92 @@
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponseNotFound
-from product.models import Product
 from .models import AddToCart
-
-def _cart_id(request):
-    cart_id = request.session.get('cart_id')
-    if not cart_id:
-        cart_id = hash(request.session.session_key)
-        request.session['cart_id'] = cart_id
-    return cart_id
+from product.models import Product  # Import your Product model here
+from registration.models import UserDetails
+from django.contrib import messages
 
 @login_required
 def add_cart(request, P_id):
-    try:
-        product = get_object_or_404(Product,P_id=P_id)   # get the product
-    except Product.DoesNotExist:
-        return HttpResponseNotFound("Product not found")
-    cart_id = _cart_id(request)
-    try:
-        cart = AddToCart.objects.get(cart_id=cart_id)
-    except AddToCart.DoesNotExist:
-        cart = AddToCart.objects.create(cart_id=cart_id)
-        cart.save()
+    # Retrieve the user from the request, assuming user is available in the request.
+    email_id = request.user.Email_id
 
     try:
-        # Set the 'p_id' field with the 'product' object
-        cart_item, created = AddToCart.objects.get_or_create(
-            p_id=product,  # Set 'p_id' with the 'product' object
-            cart=cart,
-            defaults={
-                'email_id': request.user.UserDetails.Email_id,
-                'p_name': product.P_name,
-                'price': product.Price,
-                'p_image': product.P_image.url,
-                'p_quantity': 1,
-            }
-        )
+        # Fetch product information based on P_id from your Product model
+        product = Product.objects.get(pk=P_id)
+        P_name = product.P_name  # Replace 'name' with the actual field name for product name.
+        P_price = product.Price  # Replace 'price' with the actual field name for product price.
+        P_image = product.P_image  # Replace 'image_url' with the actual field name for product image URL.
 
-        if not created:
-            cart_item.p_quantity += 1
+        P_quantity = 1  # You can set the default quantity as needed.
+        user_details = get_object_or_404(UserDetails, Email_id=email_id)
+          
+     # Check if the same product is already in the cart
+
+        try:
+            cart_item = AddToCart.objects.get(email_id=user_details, p_id=product)
+            cart_item.p_quantity += P_quantity
+            cart_item.price += P_price * P_quantity   # update total price
+            cart_item.save()
+        except AddToCart.DoesNotExist:
+            cart_item = AddToCart(
+                email_id=user_details,
+                p_id=product,
+                p_name=P_name,
+                price=P_price * P_quantity, # Initialize with the total price
+                p_image=P_image,
+                p_quantity=P_quantity,
+            )
             cart_item.save()
 
+             # Redirect back to the cart page after adding the product
         return redirect('cart')
 
-    except Exception as e:
-        print(e)  # Print any exceptions for debugging purposes
+    except Product.DoesNotExist:
+        # Handle the case where the product with the given P_id does not exist.
+        pass
+
+@login_required
+def remove_from_cart(request, cart_id):
+    try:
+        # Get the cart item to remove
+        cart_item = AddToCart.objects.get(pk=cart_id)
+        
+        if cart_item.p_quantity > 1:
+            cart_item.p_quantity -=1
+            cart_item.save()
+        else:
+            cart_item.delete() 
+        # Check if the cart item belongs to the logged-in user
+        if cart_item.email_id == request.user.Email_id:
+            cart_item.delete()
+            messages.success(request, "Item removed from the cart.")
+        else:
+            messages.error(request, "You can only remove items from your own cart.")
+    except AddToCart.DoesNotExist:
+        messages.error(request, "Item not found in the cart.")
 
     return redirect('cart')
 
+
+@login_required
 def cart(request):
-    return render(request, 'store/cart.html')
+    # Retrieve cart items for the logged-in user
+    email_id = request.user.Email_id
+    user_cart = AddToCart.objects.filter(email_id__Email_id=email_id)
+
+     # Calculate the total price dynamically
+    total_price = sum(cart_item.price for cart_item in user_cart)
+   
+    tax=(2* total_price)/100
+    grand_total= total_price + tax
+    context = {
+        'carts': user_cart,
+        'total_price': total_price,
+        'tax': tax,
+        'grand_total': grand_total,
+    }
+
+    return render(request, 'store/cart.html' ,context)
+
+    
+

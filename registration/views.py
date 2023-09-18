@@ -47,7 +47,7 @@ def login(request):
             if user.password == password:
                 # Password is correct, log the user in
                 auth.login(request, user)
-                messages.success(request, 'You are logged in successfully.')
+                
                 return redirect('home')  # Redirect to the home page after successful login
             else:
                 messages.error(request, 'Invalid login credentials')
