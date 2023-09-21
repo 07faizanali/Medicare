@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'registration',
     'feedback',
     'product',
+    'prescription',
     'cart',
+    'payment',
 ]
 
 MIDDLEWARE = [
@@ -69,6 +71,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cart.context_processors.cart_count',
                 
             ],
         },
@@ -136,8 +139,8 @@ USE_TZ = True
 
 
 # media file
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = BASE_DIR / 'media'
 
 
 
@@ -152,5 +155,8 @@ STATICFILES_DIRS=[
 
 
 
-# settings.py
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS ={
+    messages.ERROR: 'DANGER',
+}
 

@@ -1,0 +1,13 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Prescription List</h1>
+<ul>
+{% for prescription in prescriptions %}
+    <li>{{ prescription.prescription_id }} - {{ prescription.email }} - {{ prescription.image.url }}</li>
+{% empty %}
+    <li>No prescriptions uploaded yet.</li>
+{% endfor %}
+</ul>
+{% endblock %}

@@ -45,27 +45,51 @@ def add_cart(request, P_id):
         # Handle the case where the product with the given P_id does not exist.
         pass
 
+
 @login_required
-def remove_from_cart(request, cart_id):
+def increment_cart(request, cart_id):
     try:
-        # Get the cart item to remove
+        # Get the cart item to update
         cart_item = AddToCart.objects.get(pk=cart_id)
         
-        if cart_item.p_quantity > 1:
-            cart_item.p_quantity -=1
-            cart_item.save()
-        else:
-            cart_item.delete() 
         # Check if the cart item belongs to the logged-in user
         if cart_item.email_id == request.user.Email_id:
-            cart_item.delete()
-            messages.success(request, "Item removed from the cart.")
+            cart_item.p_quantity += 1
+            cart_item.price += cart_item.p_id.Price  # Increment the price
+            cart_item.save()
+            messages.success(request, "Item quantity incremented.")
         else:
-            messages.error(request, "You can only remove items from your own cart.")
+            messages.error(request, "You can only update items in your own cart.")
     except AddToCart.DoesNotExist:
         messages.error(request, "Item not found in the cart.")
 
     return redirect('cart')
+
+
+
+@login_required
+def decrement_cart(request,cart_id):
+    # Get the cart item to remove
+    cart_item = AddToCart.objects.get(pk=cart_id)
+        
+    if cart_item.p_quantity > 1:
+        cart_item.p_quantity -=1
+        cart_item.price -= cart_item.p_id.Price  # Update the price
+        cart_item.save()
+    else:
+        cart_item.delete() 
+        # Check if the cart item belongs to the logged-in user
+    return redirect('cart')
+
+@login_required
+def remove_item_from_cart(request, P_id, cart_id):
+    cart= AddToCart.objects.get(pk=cart_id(request))
+    product= get_object_or_404(Product, pk=P_id)
+    cart_item= AddToCart.objects.get(product=product, cart=cart)
+    cart_item.delete()
+ 
+    return redirect('cart')
+
 
 
 @login_required

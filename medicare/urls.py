@@ -22,12 +22,15 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
     path('', include('registration.urls')),
-    
     path('product/', include('product.urls')),
     path('product_detail.html', views.product_detail, name='product_detail'),
+    path('prescription/', include('prescription.urls')),
     path('cart/', include('cart.urls')),
+    path('', include('feedback.urls')),
+    
+
+
     path('cart/payment.html', views.payment, name='payment'),
     path('order.html', views.order, name='order'),
-    path('', include('feedback.urls')),
-    path('dashboard.html', views.dashboard, name='dashboard')
+    path('store/dashboard.html', views.dashboard, name='dashboard')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

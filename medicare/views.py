@@ -9,7 +9,7 @@ def home(request):
     return render(request,'home.html', context)
 
 def dashboard(request):
-    return render(request,'dashboard.html')
+    return render(request,'store/dashboard.html')
 
 def register(request):
     return render(request,'register.html')

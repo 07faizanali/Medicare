@@ -29,9 +29,9 @@ def register(request):
         # Optionally, you can also use Django's built-in authentication system to handle user accounts and passwords.
 
         messages.success(request, 'Registration successful.')
-        return redirect('login')  # Redirect to the login page after successful registration
+        return redirect('register')  # Redirect to the login page after successful registration
     else:
-        return render(request, 'register.html')  # Render the registration form template for GET requests
+        return render(request, 'account/register.html')  # Render the registration form template for GET requests
 
 
 
@@ -56,7 +56,7 @@ def login(request):
             messages.error(request, 'Invalid login credentials')
             return redirect('login')
 
-    return render(request, 'login.html')
+    return render(request, 'account/login.html')
         
 
 # logout function
@@ -70,4 +70,4 @@ def logout(request):
 
 @login_required(login_url = 'login')
 def dashboard(request):
-    return render(request, 'dashboard.html')
+    return render(request, 'store/dashboard.html')

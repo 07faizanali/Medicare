@@ -6,9 +6,10 @@ from django.conf import settings
 urlpatterns = [
     path('', views.cart, name='cart'),
     path('add_cart/<int:P_id>/', views.add_cart, name='add_cart'),
-    
-    path('remove/<int:cart_id>/', views.remove_from_cart, name='remove_from_cart'),
+    path('increment_cart/<int:cart_id>/', views.increment_cart, name='increment_cart'),
+    path('decrement_cart/<int:cart_id>/', views.decrement_cart, name='decrement_cart'),
+    path('remove_item/<int:cart_id>/', views.remove_item_from_cart, name='remove_item_from_cart'),
 
     
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
 
