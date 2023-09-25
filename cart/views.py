@@ -48,22 +48,20 @@ def add_cart(request, P_id):
 
 @login_required
 def increment_cart(request, cart_id):
-    try:
+    
         # Get the cart item to update
         cart_item = AddToCart.objects.get(pk=cart_id)
         
-        # Check if the cart item belongs to the logged-in user
-        if cart_item.email_id == request.user.Email_id:
-            cart_item.p_quantity += 1
-            cart_item.price += cart_item.p_id.Price  # Increment the price
-            cart_item.save()
-            messages.success(request, "Item quantity incremented.")
+        if cart_item.p_quantity < 1:
+           cart_item.p_quantity +=1
+           cart_item.price += cart_item.p_id.Price  # Update the price
+           cart_item.save()
+           messages.success(request, "Item quantity incremented.")
         else:
             messages.error(request, "You can only update items in your own cart.")
-    except AddToCart.DoesNotExist:
-        messages.error(request, "Item not found in the cart.")
+   
 
-    return redirect('cart')
+        return redirect('cart')
 
 
 
@@ -82,9 +80,9 @@ def decrement_cart(request,cart_id):
     return redirect('cart')
 
 @login_required
-def remove_item_from_cart(request):
+def remove_item_from_cart(request,cart_id):
     user_email = request.user.Email_id
-    user_cart_items = AddToCart.objects.filter(email_id__Email_id=user_email)
+    user_cart_items = AddToCart.objects.filter(email_id__Email_id=user_email,cart_id=cart_id)
     
     # Delete all cart items for the user
     user_cart_items.delete()

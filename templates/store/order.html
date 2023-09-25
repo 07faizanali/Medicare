@@ -10,66 +10,34 @@
 <main class="col-md-9">
     <article class="card">
     <header class="card-header">
-        <strong class="d-inline-block mr-3">Order ID: 6123456789</strong>
-        <span>Order Date: {{ payment.pay_date }}</span>
+        <strong class="d-inline-block mr-3">Order ID: 1</strong>
+        <strong class="d-inline-block mr-3" style="margin-left: 530px;">Order Date: 2023/09/25</strong>
     </header>
     <div class="card-body">
         <div class="row">
             <div class="col-md-8">
                 <h6 class="text-muted">Shipp_Address</h6>
-                <p>{{ user.Name }} <br>
-                Phone: {{ user.Mobile }}, Email: {{ user.Email_id }} <br>
+                <p> 
+                Email_ID: {{ user.Email_id }} <br>
                 Location: {{ user.Address }}, {{user.City}}, India <br>
                 P.O. Box: 110094
                  </p>
             </div>
-            <div class="col-md-4">
-                <h6 class="text-muted">Payment</h6>
-                <span class="text-success">
-                    <i class="fab fa-lg fa-cc-visa"></i>
-                    Visa  **** 4216
-                </span>
-                <p>Quantity: ${{ grand_total }} <br>
-                 <span class="b">Total:  Rs </span>
-                </p>
-            </div>
+          
         </div> <!-- row.// -->
     </div> <!-- card-body .// -->
     <div class="table-responsive">
     <table class="table table-hover">
         <tr>
-            <td width="65">
-                <img src="{% static './images/items/1.webp' %}" class="img-xs border">
-            </td>
-            <td>
-                <p class="title mb-0">Product name goes here </p>
-                <var class="price text-muted">USD 145</var>
-            </td>
-            <td> Seller <br> Medicare.com </td>
+            
+            <td> Pay_id <br> 1 </td>
+            <td> P_id <br> 3 </td>
+            <td> Quantity <br> 2 </td>
+            <td> Amount <br>Rs 90 </td>
             <td width="250">  <a href="#" class="btn btn-light"> Cancel </a> </td>
         </tr>
-        <tr>
-            <td>
-                <img src="{% static './images/items/3.webp' %}" class="img-xs border">
-            </td>
-            <td>
-                <p class="title mb-0">Another name goes here </p>
-                <var class="price text-muted">USD 15</var>
-            </td>
-            <td> Seller <br> Medicare.com </td>
-            <td>  <a href="#" class="btn btn-light"> Cancel </a> </td>
-        </tr>
-        <tr>
-            <td>
-                <img src="{% static './images/items/2.webp' %}" class="img-xs border">
-            </td>
-            <td>
-                <p class="title mb-0">The name of the product  goes here </p>
-                <var class="price text-muted">USD 145</var>
-            </td>
-            <td> Seller <br> Medicare.com </td>
-            <td>  <a href="#" class="btn btn-light"> Cancel </a> </td>
-        </tr>
+     
+     
     </table>
     </div> <!-- table-responsive .end// -->
     </article> <!-- order-group.// -->
