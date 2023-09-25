@@ -57,4 +57,8 @@ $(document).ready(function() {
     
 }); 
 // jquery end
+// alert messages dismiss automatically
+setTimeout(function(){
 
+    $('#messages').fadeOut('slow')
+}, 6000)

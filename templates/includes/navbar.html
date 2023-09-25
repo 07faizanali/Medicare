@@ -13,12 +13,12 @@
                 
             </li>
             <li class="nav-item dropdown">
-                <a href="#" class="nav-link"> USD </a>
+                <a href="{% url 'about_us' %}" class="nav-link"> <i class="fa fa-user-circle" aria-hidden="true"></i> About Us </a>
             </li>
         </ul>
         <ul class="navbar-nav">
-            <li><a href="#" class="nav-link"> <i class="fa fa-user-circle" aria-hidden="true"></i> About Us </a></li>
-            <li><a href="#" class="nav-link"> <i class="fa fa-phone" aria-hidden="true"></i>Contact Us </a></li>
+            
+            <li><a href="{% url 'contact_us' %}" class="nav-link"> <i class="fa fa-phone" aria-hidden="true"></i>Contact Us </a></li>
             {% if user.is_authenticated %}
             <li><a href="{% url 'feedback' %}" class="nav-link"> <i class="fa fa-comment"></i> Feedback </a></li>
             {% endif %}
@@ -39,12 +39,13 @@
             <div class="category-wrap dropdown d-inline-block float-right">
                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> 
                     <i class="fa fa-bars"></i> All category 
+                    
                 </button>
                 <div class="dropdown-menu">
-                    {% for category in categories %}
-                    <a class="dropdown-item" href="{% url 'product' %}?category={{ category.slug }}">{{ category.name }}</a>
-                    {% endfor %}
-                    
+                    <a href="{% url 'product' %}?category=medicine" class="dropdown-item">medicine</a>
+                    <a href="{% url 'product' %}?category=health care" class="dropdown-item">Health Care</a>
+                    <a href="{% url 'product' %}?category=baby care" class="dropdown-item">Baby Care</a>
+                    <a href="{% url 'product' %}?category=ayurvedic" class="dropdown-item">Ayurvedic</a>
                 </div>
             </div>  <!-- category-wrap.// -->
         </div> <!-- col.// -->
@@ -66,7 +67,7 @@
             <div class="d-flex justify-content-end mb-3 mb-lg-0">
                 {% if user.is_authenticated %}
                 <div class="widget-header">
-                    <small class="title text-muted">Welcome : <b> {{ user.Name }} </b></small>
+                    <small class="title text-muted">Welcome : <b> <i class="fa fa-user-circle" aria-hidden="true"></i> {{ user.Name }} </b></small>
                     <div>
                         <a href="{% url 'dashboard' %}">Dashboard</a> <span class="dark-transp"> | </span>
                         <a href="{% url 'logout' %}"> Logout <i class="fa fa-power-off"></i></a>

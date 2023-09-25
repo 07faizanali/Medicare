@@ -82,14 +82,23 @@ def decrement_cart(request,cart_id):
     return redirect('cart')
 
 @login_required
-def remove_item_from_cart(request, P_id, cart_id):
-    cart= AddToCart.objects.get(pk=cart_id(request))
-    product= get_object_or_404(Product, pk=P_id)
-    cart_item= AddToCart.objects.get(product=product, cart=cart)
-    cart_item.delete()
- 
+def remove_item_from_cart(request):
+    user_email = request.user.Email_id
+    user_cart_items = AddToCart.objects.filter(email_id__Email_id=user_email)
+    
+    # Delete all cart items for the user
+    user_cart_items.delete()
     return redirect('cart')
 
+
+# cart_utils.py
+
+def clear_cart(request):
+    user_email = request.user.Email_id
+    user_cart_items = AddToCart.objects.filter(email_id__Email_id=user_email)
+    
+    # Delete all cart items for the user
+    user_cart_items.delete()
 
 
 @login_required

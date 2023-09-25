@@ -13,8 +13,9 @@
 		<!--   SIDEBAR   -->
 		<ul class="list-group">
 			<a class="list-group-item active" href="#"> My order history </a>
-			<a class="list-group-item" href="#"> Orders  </a>
-			<a class="list-group-item" href="#"> Cart </a>
+			<a href="{% url 'cart' %}" class="list-group-item" > Cart </a>
+			<a href="{% url 'prescription' %}" class="list-group-item" > Prescription_upload  </a>
+			<a href="{% url 'order' %}" class="list-group-item" > Orders  </a>
 		</ul>
 		<br>
 		<a class="btn btn-light btn-block" href="{% url 'logout' %}"> <i class="fa fa-power-off"></i> <span class="text">Log out</span> </a>
@@ -24,16 +25,16 @@
 		<article class="card">
 		<header class="card-header">
 			<strong class="d-inline-block mr-3">Order ID: 6123456789</strong>
-			<span>Order Date: 16 December 2018</span>
+			<span>Order Date: {{ payment.pay_date }}</span>
 		</header>
 		<div class="card-body">
 			<div class="row">
 				<div class="col-md-8">
 					<h6 class="text-muted">Delivery to</h6>
-					<p>Michael Jackson <br>
-					Phone +1234567890 Email: myname@pixsellz.com <br>
-			    	Location: Home number, Building name, Street 123,  Tashkent, UZB <br>
-			    	P.O. Box: 100123
+					<p>{{ user.Name }} <br>
+					Phone: {{ user.Mobile }}, Email: {{ user.Email_id }} <br>
+			    	Location: {{ user.Address }}, {{user.City}}, India <br>
+			    	P.O. Box: 110094
 			 		</p>
 				</div>
 				<div class="col-md-4">
@@ -59,8 +60,8 @@
 					<p class="title mb-0">Product name goes here </p>
 					<var class="price text-muted">USD 145</var>
 				</td>
-				<td> Seller <br> Nike clothing </td>
-				<td width="250"> <a href="#" class="btn btn-outline-primary">Track order</a> <a href="#" class="btn btn-light"> Details </a> </td>
+				<td> Seller <br> Medicare.com </td>
+				<td width="250">  <a href="#" class="btn btn-light"> Details </a> </td>
 			</tr>
 			<tr>
 				<td>
@@ -70,8 +71,8 @@
 					<p class="title mb-0">Another name goes here </p>
 					<var class="price text-muted">USD 15</var>
 				</td>
-				<td> Seller <br> ABC shop </td>
-				<td> <a href="#" class="btn btn-outline-primary">Track order</a> <a href="#" class="btn btn-light"> Details </a> </td>
+				<td> Seller <br> Medicare.com </td>
+				<td>  <a href="#" class="btn btn-light"> Details </a> </td>
 			</tr>
 			<tr>
 				<td>
@@ -81,8 +82,8 @@
 					<p class="title mb-0">The name of the product  goes here </p>
 					<var class="price text-muted">USD 145</var>
 				</td>
-				<td> Seller <br> Wallmart </td>
-				<td> <a href="#" class="btn btn-outline-primary">Track order</a> <a href="#" class="btn btn-light"> Details </a> </td>
+				<td> Seller <br> Medicare.com </td>
+				<td>  <a href="#" class="btn btn-light"> Details </a> </td>
 			</tr>
 		</table>
 		</div> <!-- table-responsive .end// -->

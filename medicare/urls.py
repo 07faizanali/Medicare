@@ -27,10 +27,10 @@ urlpatterns = [
     path('prescription/', include('prescription.urls')),
     path('cart/', include('cart.urls')),
     path('', include('feedback.urls')),
+    path('', include('payment.urls')),
+    path('', include('order.urls')),
+    path('store/dashboard.html', views.dashboard, name='dashboard'),
+    path('about_us/', views.about_us, name="about_us"),
+    path('contact_us/', views.contact_us, name="contact_us"),
     
-
-
-    path('cart/payment.html', views.payment, name='payment'),
-    path('order.html', views.order, name='order'),
-    path('store/dashboard.html', views.dashboard, name='dashboard')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

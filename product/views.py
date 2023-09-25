@@ -27,6 +27,9 @@ def product_detail(request, pid):
     return render(request, 'store/product_detail.html', {'product': product})
 
 
+
+
+
 def search(request):
     if 'keyword' in request.GET:
         keyword = request.GET['keyword']

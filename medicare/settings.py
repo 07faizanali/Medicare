@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'prescription',
     'cart',
     'payment',
+    'order',
 ]
 
 MIDDLEWARE = [
@@ -82,13 +83,16 @@ WSGI_APPLICATION = 'medicare.wsgi.application'
 
 AUTH_USER_MODEL = 'registration.UserDetails'
 
-# AUTHENTICATION_BACKENDS = [
-#     'foradmin.backends.AdminUserBackend',
-#     'django.contrib.auth.backends.ModelBackend',
-# ]
 
 
-# AUTH_USER_MODEL = 'foradmin.AdminUser'   # this is for admin authentication
+# AUTHENTICATION_BACKENDS = (
+#     'django.contrib.auth.backends.ModelBackend',  # Default authentication backend
+#     'django.contrib.auth.backends.AllowAllUsersModelBackend',  # Allows login with email
+# )
+
+
+
+# LOGIN_URL = '/admin/login/'   # this is for admin authentication
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases

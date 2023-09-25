@@ -5,7 +5,7 @@
 <h1>Prescription List</h1>
 <ul>
 {% for prescription in prescriptions %}
-    <li>{{ prescription.prescription_id }} - {{ prescription.email }} - {{ prescription.image.url }}</li>
+    <li>Pres_Id: {{ prescription.pres_id }} ; Email_id {{ prescription.Email_id }} ; Prescription_image Url: {{ prescription.pres_image.url }}</li>
 {% empty %}
     <li>No prescriptions uploaded yet.</li>
 {% endfor %}

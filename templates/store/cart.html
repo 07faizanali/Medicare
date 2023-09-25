@@ -60,7 +60,7 @@
 		</div> <!-- price-wrap .// -->
 	</td>
 	<td class="text-right"> 
-		<a href="{% url 'remove_item_from_cart' cart_item.cart_id %}" class="btn btn-danger"> Remove</a>
+		<a href="{% url 'remove_item_from_cart'%}" class="btn btn-danger"> Remove</a>
 	</td>
 </tr>
 {% endfor %}
@@ -89,7 +89,7 @@
 			<p class="text-center mb-3">
 				<img src="{% static './images/misc/payments.png' %}" height="26">
 			</p>
-			<a href="./payment.html" class="btn btn-primary btn-block"> Checkout </a>
+			<a href="{% url 'make_payment' %}" class="btn btn-primary btn-block"> Checkout </a>
 			<a href="{% url 'product' %}" class="btn btn-light btn-block">Continue Shopping</a>
 		</div> <!-- card-body.// -->
 		</div> <!-- card.// -->

@@ -18,7 +18,7 @@ def prescriptions(request):
         except UserDetails.DoesNotExist:
             # Handle the case where the UserDetail instance doesn't exist
             messages.error(request, 'User with this email does not exist.')
-            return redirect('prescription')  # Redirect back to the feedback page
+            return redirect('prescription_list')  # Redirect back to the feedback page
 
       
        # Create a new UserProfile instance and save it to the database

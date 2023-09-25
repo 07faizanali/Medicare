@@ -23,12 +23,8 @@ def product(request):
 def product_detail(request):
     return render(request,'store/product_detail.html')
 
+def about_us(request):
+    return render(request, 'includes/about_us.html')
 
-def payment(request):
-    return render(request,'payment.html')
-
-def order(request):
-    return render(request,'order.html')
-
-def feedback(request):
-    return render(request,'feedback.html')
+def contact_us(request):
+    return render(request, 'includes/contact_us.html')
