@@ -1,6 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Product
 from django.db.models import Q
+from prescription.models import Prescription
+from django.contrib.auth.decorators import login_required 
 
 def product_list(request):
     products = Product.objects.all()
@@ -22,12 +24,21 @@ def product_list(request):
     return render(request, 'store/product.html', context)
 
 
+
+
+  # Add the login_required decorator to ensure the user is authenticated
 def product_detail(request, pid):
-    product = get_object_or_404(Product, P_id=pid)  # Retrieve the product or return a 404 if not found
+    product = get_object_or_404(Product, P_id=pid)
+
+    # Check if the product category is "medicine"
+    if product.Category == "medicine":
+        # Check if the user has already uploaded a prescription
+        prescription_exists = Prescription.objects.filter(Email_id=request.user.Email_id).exists()
+        if not prescription_exists:
+            # Redirect the user to upload a prescription
+            return redirect('prescription')
+
     return render(request, 'store/product_detail.html', {'product': product})
-
-
-
 
 
 def search(request):
@@ -41,3 +52,6 @@ def search(request):
           'product_count': product_count,
     }
     return render(request, 'store/product.html', context)
+
+
+    

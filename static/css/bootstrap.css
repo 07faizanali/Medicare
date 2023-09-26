@@ -4018,6 +4018,7 @@ input[type=button].btn-block {
 }
 
 .navbar {
+  background-color: grey;
   position: relative;
   display: flex;
   flex-wrap: wrap;
@@ -4054,6 +4055,7 @@ input[type=button].btn-block {
   list-style: none;
 }
 .navbar-nav .nav-link {
+  
   padding-right: 0;
   padding-left: 0;
 }
@@ -4280,7 +4282,7 @@ input[type=button].btn-block {
   color: rgba(0, 0, 0, 0.9);
 }
 .navbar-light .nav-link {
-  color: rgba(0, 0, 0, 0.5);
+  color: #fff;
 }
 .navbar-light .nav-link:hover, .navbar-light .nav-link:focus {
   color: black;

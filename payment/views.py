@@ -8,9 +8,6 @@ from django.contrib import messages
 from cart.views import clear_cart
 from django.utils import timezone
 
-
-
-
 @login_required
 def make_payment(request):
     if request.method == 'POST':
@@ -38,6 +35,9 @@ def make_payment(request):
         user_cart = AddToCart.objects.filter(email_id__Email_id=email_id)
         product_ids = [cart_item.p_id.pk for cart_item in user_cart]
 
+          # Calculate the total quantity based on items in the cart
+        total_quantity = sum(cart_item.p_quantity for cart_item in user_cart)
+
         # Create a Payment object for each product in the cart
         for product_id in product_ids:
             product = Product.objects.get(pk=product_id)
@@ -59,46 +59,16 @@ def make_payment(request):
         # Clear the cart after successful payment (assuming you have it implemented)
         clear_cart(request)
 
-        messages.success(request, 'Payment successful.')
-        return redirect('make_payment')  # Redirect to a success page
-
-    # Handle GET request and pass the total price to the template
-    email_id = request.user.Email_id
-    user_cart = AddToCart.objects.filter(email_id__Email_id=email_id)
-    total_price = sum(cart_item.price for cart_item in user_cart)
-    tax = (2 * total_price) / 100
-    grand_total = total_price + tax
-
-    context = {
-        'grand_total': grand_total,
-    }
-    return render(request, 'store/payment.html', context)
-
-
-
-@login_required
-def order(request):
-    if request.method == 'POST':
-        # ... (existing code)
-
-        # Clear the cart after successful payment (assuming you have it implemented)
-        clear_cart(request)
-
-        product_ids = [cart_item.p_id.pk for cart_item in user_cart]
-
-        # Create an Order object for each product in the cart
-        for product_id in product_ids:
-            product = Product.objects.get(pk=product_id)
-            order = Order(
-                pay_id=Payment,  # Use the Payment object created above
-                p_id=product,
-                email_id=request.user.Email_id,  # Use the UserDetails instance
-                shipp_address=request.user.Address,  # Replace with the actual shipping address retrieval logic
-                quantity=1,  # You may need to adjust this depending on your cart logic
-                amount=product.price,  # Use the product's price
-                order_date=timezone.now(),
-            )
-            order.save()
+        order = Order(
+            pay_id=payment,  # Payment object istemal karo
+            p_id=product,  # Product ID ko None ya NULL rakho, kyunki product abhi select nahi hua hai
+            email_id=user_details,  # UserDetails instance istemal karo
+            shipp_address=request.user.Address,  # Shipping address abhi set nahi kiya gaya hai
+            quantity=total_quantity,  # Aapko apne cart logic ke hisab se isko adjust kar sakte hain
+            amount=grand_total,  # Payment amount istemal karo
+            order_date=timezone.now(),
+        )
+        order.save()
 
         messages.success(request, 'Payment successful.')
         return redirect('make_payment')  # Redirect to a success page
@@ -115,4 +85,4 @@ def order(request):
     }
     return render(request, 'store/payment.html', context)
 
-    
+
