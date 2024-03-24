@@ -1,6 +1,6 @@
 ## Website Demo Screenshots
 
-![Homepage](WebsiteScreenshot/home.jpg)
+![Homepage](WebsiteScreenshot/HOME.jpg)
 
 ![About Page](screenshots/about.png)
 
