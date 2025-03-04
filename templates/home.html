@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<!-- ========================= SECTION MAIN ========================= -->
+<section class="section-intro padding-y-sm">
+<div class="container">
+    <div class="intro-banner-wrap">
+        <img src="{% static 'images/banners/0.jpg' %}" class="img-fluid rounded">
+    </div>
+</div> <!-- container //  -->
+</section>
+<!-- ========================= SECTION MAIN END// ========================= -->
+
+<!-- ========================= SECTION  ========================= -->
+<section class="section-name padding-y-sm">
+<div class="container">
+
+<header class="section-heading">
+    <a href="{% url 'product' %}" class="btn btn-outline-primary float-right">See all</a>
+    <h3 class="section-title">Best Products</h3>
+</header><!-- sect-heading -->
+
+<div class="row">
+    {% for product in products %}
+    <div class="col-md-3">
+        <div class="card card-product-grid">
+            <a href="{% url 'product_detail' product.P_id %}" class="img-wrap">
+                <img src="{{ product.P_image.url }}">
+            </a>
+            <figcaption class="info-wrap">
+                <a href="{% url 'product_detail' product.P_id %}" class="title">{{ product.P_name }}</a>
+                <div class="price mt-1">Rs {{ product.Price }}</div> <!-- price-wrap.// -->
+
+                <!-- Star Rating -->
+                <div class="rating mt-2">
+                    {% with product.rating|default:0 as rating %}
+                        {% for i in "12345"|make_list %}
+                            {% if forloop.counter <= rating %}
+                                <i class="fa fa-star text-warning"></i> <!-- Filled star -->
+                            {% else %}
+                                <i class="fa fa-star text-secondary"></i> <!-- Empty star -->
+                            {% endif %}
+                        {% endfor %}
+                    {% endwith %}
+                </div>
+
+            </figcaption>
+        </div>
+    </div> <!-- col.// -->
+    {% endfor %}
+</div> <!-- row.// -->
+
+</div><!-- container // -->
+</section>
+<!-- ========================= SECTION  END// ========================= -->
+
+{% endblock %}

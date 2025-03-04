@@ -1,0 +1,55 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+
+<section class="section-conten padding-y bg">
+ 
+    <div class="container">
+        <h3>&nbspUser Orders</h3>
+        <div class="row">
+            {% include 'includes/alert.html' %}
+<main class="col-md-9">
+    {% for order in orders %}
+    <article class="card">
+    <header class="card-header">
+        <strong class="d-inline-block mr-3">Order ID: {{ order.order_id }}</strong>
+        <strong class="d-inline-block mr-3" style="margin-left: 530px;">Order Date: {{ order.order_date }}</strong>
+    </header>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-8">
+                <h6 class="text-muted">Shipp_Address</h6>
+                <p> 
+                Email_ID: {{ order.email_id.Email_id }} <br>
+                Location: {{ order.email_id.Address }}, {{order.email_id.City}}, India <br>
+                P.O. Box: 110094
+                 </p>
+            </div>
+          
+        </div> <!-- row.// -->
+    </div> <!-- card-body .// -->
+    <div class="table-responsive">
+    <table class="table table-hover">
+        <tr>
+            
+            <td>Pay_id <br> {{ order.pay_id.pay_id }}</td>
+            <td>P_id <br> {{ order.p_id.P_id }}</td>
+            <td>Quantity <br> {{ order.quantity }}</td>
+            <td>Amount <br> Rs {{ order.amount }}</td>
+            <td width="250" class="text-right">  
+                <a href="{% url 'cancel_order' order.order_id %}" class="btn btn-danger">Order Cancel </a> </td>
+        </tr>
+     
+     
+    </table>
+    </div> <!-- table-responsive .end// -->
+    </article> <!-- order-group.// -->
+    {% endfor %}
+</main>
+</div> <!-- row.// -->
+</div>
+
+
+</section>
+
+{% endblock %}
